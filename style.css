@@ -227,6 +227,10 @@ button:active {
   font-size: 0.95rem;
 }
 
+#disqus_thread {
+  min-height: 200px;
+}
+
 @container (max-width: 600px) {
   .comments-wrapper {
     padding: 2rem 1.5rem;

@@ -193,3 +193,14 @@ button:active {
 ::placeholder {
   color: oklch(from var(--text-muted) l c h / 0.5);
 }
+
+.divider {
+  border: none;
+  height: 1px;
+  background: var(--border);
+  margin: 3rem 0;
+}
+
+.comments-section {
+  margin-top: 2rem;
+}

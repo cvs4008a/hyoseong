@@ -210,6 +210,23 @@ button:active {
   margin-top: 2rem;
 }
 
+.comments-header {
+  margin-bottom: 2rem;
+  border-bottom: 2px solid var(--bg-color);
+  padding-bottom: 1rem;
+}
+
+.comments-header h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.comments-header p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
 @container (max-width: 600px) {
   .comments-wrapper {
     padding: 2rem 1.5rem;

@@ -1,14 +1,58 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hello World</title>
-  <link href='/style.css' rel='stylesheet'>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>제휴 문의 | Partnership Inquiry</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1>Hello, world!</h1>
-  <button onclick="console.log('hello');">Press me</button>
-  <script defer type="text/javascript" src="/main.js"></script>
+  <main class="container">
+    <section class="form-wrapper">
+      <div class="header">
+        <h1>제휴 문의</h1>
+        <p>함께 혁신적인 가치를 만들어갈 파트너를 기다립니다.</p>
+      </div>
+      
+      <form id="partnership-form" action="https://formspree.io/f/mqewanqn" method="POST">
+        <div class="input-group">
+          <label for="full-name">성함 / 담당자명</label>
+          <input type="text" id="full-name" name="name" required placeholder="홍길동">
+        </div>
+
+        <div class="input-row">
+          <div class="input-group">
+            <label for="email">이메일 주소</label>
+            <input type="email" id="email" name="email" required placeholder="example@company.com">
+          </div>
+          <div class="input-group">
+            <label for="organization">소속 (회사/단체)</label>
+            <input type="text" id="organization" name="organization" required placeholder="주식회사 예시">
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label for="subject">문의 제목</label>
+          <input type="text" id="subject" name="subject" required placeholder="제휴 제안의 핵심 내용을 적어주세요">
+        </div>
+
+        <div class="input-group">
+          <label for="message">상세 내용</label>
+          <textarea id="message" name="message" required placeholder="제안하시고자 하는 내용을 상세히 입력해 주세요."></textarea>
+        </div>
+
+        <button type="submit" id="submit-btn">제휴 문의 보내기</button>
+        
+        <div id="status-message" class="status-message hidden">
+          <p id="status-text"></p>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script src="main.js" type="module"></script>
 </body>
 </html>

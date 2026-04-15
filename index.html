@@ -3,11 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="인공지능(AI)이 분석하는 나의 동물상 테스트! 강아지상일까, 고양이상일까? 지금 바로 사진 한 장으로 당신의 매력을 확인해보세요.">
+  <meta name="keywords" content="동물상 테스트, 관상 테스트, AI 테스트, 강아지상, 고양이상, 인공지능 분석, Teachable Machine">
   <meta name="google-adsense-account" content="ca-pub-5372181264998864">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5372181264998864" crossorigin="anonymous"></script>
   <title>동물상 테스트 | 강아지 vs 고양이</title>
   <link rel="icon" href="data:;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAuSURBVHgB7dAxAQAACMCwqcM6ZisLCH6D6O78C0YDAoFAIBAYEAgEAgOBQCB4AgN75ALrX04B9AAAAABJRU5ErkJggg==">
-  <link rel="stylesheet" href="style.css?v=3.2">
+  <link rel="stylesheet" href="style.css?v=3.3">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700&display=swap" rel="stylesheet">
@@ -16,7 +18,21 @@
   <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
 </head>
 <body>
+  <!-- Navigation Bar -->
+  <header class="main-nav">
+    <div class="nav-container">
+      <a href="index.html" class="logo">🐶 동물상 테스트 🐱</a>
+      <nav>
+        <a href="index.html">홈</a>
+        <a href="#about">소개</a>
+        <a href="#characteristics">특징</a>
+        <a href="privacy.html">개인정보 처리방침</a>
+      </nav>
+    </div>
+  </header>
+
   <main class="container">
+    <!-- Main Interaction Card -->
     <section class="card-wrapper main-card">
       <div class="header">
         <h1>🐶 동물상 테스트 🐱</h1>
@@ -24,13 +40,11 @@
       </div>
 
       <div class="test-area">
-        <!-- Model Loading Indicator -->
         <div id="model-loading" class="loading-overlay">
           <div class="spinner"></div>
           <p>인공지능 모델을 불러오는 중...</p>
         </div>
 
-        <!-- Upload & Capture Zone -->
         <div id="upload-zone" class="upload-zone">
           <input type="file" id="image-upload" accept="image/*" hidden>
           <div class="upload-content" onclick="document.getElementById('image-upload').click()">
@@ -40,18 +54,15 @@
           </div>
         </div>
 
-        <!-- Image Preview -->
         <div id="image-preview-container" class="image-preview-container hidden">
           <img id="face-image" src="" alt="나의 사진">
           <button id="re-upload-btn" class="btn-secondary">다시 찍기</button>
         </div>
 
-        <!-- Prediction Button -->
         <div id="action-area" class="action-area hidden">
           <button id="predict-btn" class="btn-primary">결과 확인하기</button>
         </div>
 
-        <!-- Result Section -->
         <div id="result-container" class="result-container hidden">
           <div class="result-header">
             <h2 id="result-title">당신은 강아지상입니다!</h2>
@@ -73,6 +84,43 @@
       </div>
     </section>
 
+    <!-- AdSense Auto-Ad Section Placeholder -->
+    <section class="ad-placeholder">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-5372181264998864"
+           data-ad-slot="auto"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </section>
+
+    <!-- Information Sections for High Quality -->
+    <section id="about" class="info-card">
+      <h2>동물상 테스트란 무엇인가요?</h2>
+      <p>동물상 테스트는 구글의 <b>Teachable Machine</b> 인공지능 기술을 활용하여, 사용자의 얼굴형과 인상을 분석하고 어떤 동물과 가장 닮았는지 알려주는 재미있는 심리 테스트 서비스입니다.</p>
+      <p>단순한 재미를 넘어, 최근에는 관상이나 매력을 분석하는 흥미로운 지표로도 활용되고 있습니다. 당신의 숨겨진 동물상 매력을 지금 바로 확인해보세요!</p>
+    </section>
+
+    <section id="characteristics" class="info-card grid-2">
+      <div class="info-box dog-theme">
+        <h3>🐶 강아지상 특징</h3>
+        <p>강아지상은 전체적으로 선하고 부드러운 인상을 줍니다. 눈매가 둥글고 처진 편이며, 웃을 때의 모습이 특히 매력적입니다. 친화력이 좋고 다정한 성격으로 주변 사람들에게 긍정적인 에너지를 전달하는 스타일입니다.</p>
+      </div>
+      <div class="info-box cat-theme">
+        <h3>🐱 고양이상 특징</h3>
+        <p>고양이상은 도도하면서도 신비로운 분위기가 돋보입니다. 눈매가 날카롭고 매력적인 캣아이 형태를 띠며, 도회적이고 차가워 보일 수 있지만 알면 알수록 깊은 매력이 느껴지는 타입입니다. 독립적이고 주관이 뚜렷한 경우가 많습니다.</p>
+      </div>
+    </section>
+
+    <section class="info-card">
+      <h2>어떻게 분석되나요? (AI Technology)</h2>
+      <p>본 테스트는 수만 장의 강아지와 고양이 사진 데이터를 학습한 <b>Deep Learning (딥러닝)</b> 모델을 기반으로 합니다. 사용자가 업로드한 사진은 서버에 저장되지 않고 브라우저 내부에서 즉시 분석되므로 개인정보에 안전합니다.</p>
+      <p>최신 컴퓨터 비전 기술을 통해 얼굴의 주요 특징점을 추출하고, 이를 학습된 데이터와 비교하여 확률을 계산하는 정교한 과정을 거칩니다.</p>
+    </section>
+
     <!-- Comments Section -->
     <section class="comments-wrapper">
       <div class="comments-header">
@@ -92,6 +140,18 @@
       <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     </section>
   </main>
+
+  <footer class="main-footer">
+    <div class="footer-container">
+      <p>&copy; 2026 동물상 테스트. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="index.html">홈</a>
+        <a href="index.html#about">소개</a>
+        <a href="privacy.html">개인정보 처리방침</a>
+        <a href="https://github.com/cvs4008a/hyoseong" target="_blank">GitHub</a>
+      </div>
+    </div>
+  </footer>
 
   <script src="main.js" type="module"></script>
 </body>

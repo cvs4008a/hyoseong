@@ -63,38 +63,51 @@
       </div>
       <script>
           /**
-           * Disqus 실행 확인용 로그
+           * Disqus 최종 디버깅 및 실행 코드
            */
-          console.log("=== Disqus 디버깅 시작 ===");
+          console.log("=== Disqus 시스템 체크 시작 ===");
           
           var disqus_config = function () {
-              this.page.url = window.location.href;
+              this.page.url = window.location.href.split(/[?#]/)[0]; // 쿼리 스트링 제거된 깨끗한 URL
               this.page.identifier = window.location.pathname;
-              console.log("Disqus 설정 완료: " + this.page.url);
+              console.log("1. 설정된 URL: " + this.page.url);
+              console.log("2. 설정된 ID: " + this.page.identifier);
           };
 
           (function() {
-              try {
-                  var d = document, s = d.createElement('script');
-                  // 캐시 방지를 위해 시간값 추가
-                  s.src = 'https://hyoseong.disqus.com/embed.js?v=' + Date.now();
-                  s.setAttribute('data-timestamp', +new Date());
-                  
-                  s.onload = function() {
-                      console.log("결과: Disqus 스크립트 파일 로드 성공!");
-                  };
-                  
-                  s.onerror = function() {
-                      console.error("결과: 스크립트 로드 실패. Shortname(hyoseong)을 확인하세요.");
-                      document.getElementById('disqus_thread').innerHTML = 
-                          '<p style="text-align: center; color: #ff4b4b;">댓글창 로드 실패. Shortname이나 도메인 설정을 확인해주세요.</p>';
-                  };
+              var d = document, s = d.createElement('script');
+              // 캐시 방지 및 최신 버전 강제 로드
+              s.src = 'https://hyoseong.disqus.com/embed.js';
+              s.setAttribute('data-timestamp', +new Date());
+              
+              // 5초 후에도 댓글창이 안 뜨면 안내 문구 출력
+              var timeout = setTimeout(function() {
+                  var thread = document.getElementById('disqus_thread');
+                  if (thread && thread.innerHTML.includes('불러오는 중')) {
+                      console.warn("Disqus 로딩 지연 중... 설정을 확인하세요.");
+                      thread.innerHTML = `
+                        <div style="text-align: center; padding: 20px; border: 1px dashed #ccc; border-radius: 12px;">
+                          <p style="color: #ff4b4b; font-weight: bold; margin-bottom: 10px;">댓글창 로딩이 지연되고 있습니다.</p>
+                          <p style="font-size: 0.9rem; color: #666;">
+                            1. Disqus Admin에서 <b>hyoseong</b> Shortname이 정확한지 확인<br>
+                            2. <b>cvs4008a.github.io</b>가 Trusted Domains에 등록되었는지 확인<br>
+                            3. 브라우저의 <b>광고 차단기(AdBlock)</b>를 끄고 확인
+                          </p>
+                        </div>`;
+                  }
+              }, 5000);
 
-                  (d.head || d.body).appendChild(s);
-                  console.log("스크립트 태그 삽입 완료. 응답 대기 중...");
-              } catch (e) {
-                  console.error("스크립트 실행 중 오류 발생:", e);
-              }
+              s.onload = function() {
+                  console.log("3. 결과: Disqus 서버 연결 성공!");
+                  clearTimeout(timeout);
+              };
+              
+              s.onerror = function() {
+                  console.error("3. 결과: 스크립트 파일 자체를 찾을 수 없습니다 (Shortname 오류 확률 높음)");
+                  clearTimeout(timeout);
+              };
+
+              (d.head || d.body).appendChild(s);
           })();
       </script>
       <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>

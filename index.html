@@ -53,75 +53,33 @@
 
     </section>
 
-    <section class="comments-wrapper">
+    <section class="comments-wrapper" style="background: #f0f4f8; border: 2px solid #d1d9e6;">
       <div class="comments-header">
         <h2>의견 남기기</h2>
         <p>프로젝트에 대한 의견이나 제휴 문의 관련 댓글을 남겨주세요.</p>
       </div>
-      <div id="disqus_thread" style="min-height: 250px; border: 1.5px solid var(--border); border-radius: 12px; padding: 20px;">
-        <p id="disqus-status" style="text-align: center; color: var(--primary); font-weight: bold;">
-          댓글 시스템 진단 중... (v3.1)
-        </p>
+      
+      <!-- 테스트를 위한 명시적 영역 표시 -->
+      <div id="disqus_thread" style="background: white; min-height: 300px; padding: 20px; border-radius: 8px;">
+        <p style="text-align: center; color: #555;">댓글창 로딩 시도 중... (v3.2)</p>
       </div>
 
       <script>
-          /**
-           * Disqus v3.1 - 에러 자가 진단 및 로딩 코드
-           */
-          (function() {
-              var status = document.getElementById('disqus-status');
-              
-              window.disqus_config = function () {
-                  this.page.url = 'https://cvs4008a.github.io/hyoseong/';
-                  this.page.identifier = '/hyoseong/';
-              };
+          var disqus_config = function () {
+              this.page.url = 'https://cvs4008a.github.io/hyoseong/';
+              this.page.identifier = '/hyoseong/';
+          };
 
+          (function() {
               var d = document, s = d.createElement('script');
-              // Shortname 'hyoseong-1' 적용
+              // Shortname 'hyoseong-1'을 직접 사용
               s.src = 'https://hyoseong-1.disqus.com/embed.js';
               s.setAttribute('data-timestamp', +new Date());
-              
-              // 5초 후에도 응답 없으면 안내
-              var timer = setTimeout(function() {
-                  if (status) {
-                      status.innerHTML = `
-                        <div style="color: #3498db; text-align: left; padding: 10px;">
-                          <p style="font-weight: bold; margin-bottom: 10px;">⚠️ 로딩 지연 중 (도메인 확인 필요)</p>
-                          <p style="font-size: 0.85rem; font-weight: normal; line-height: 1.6;">
-                            코드는 정확합니다. 아래 설정을 확인해주세요:<br>
-                            1. <b>Disqus Admin > Settings > General</b> 접속<br>
-                            2. <b>Trusted Domains</b>에 <b>cvs4008a.github.io</b> 등록 확인<br>
-                            3. <b>광고 차단기(AdBlock)</b> 또는 <b>트래커 차단</b> 해제
-                          </p>
-                        </div>`;
-                  }
-              }, 5000);
-
-              s.onload = function() {
-                  clearTimeout(timer);
-                  if (status) status.parentElement.style.display = 'none';
-              };
-              
-              s.onerror = function() {
-                  clearTimeout(timer);
-                  if (status) {
-                      status.innerHTML = `
-                        <div style="color: #e74c3c; text-align: center;">
-                          <p style="font-weight: bold; margin-bottom: 10px;">❌ 로드 실패 (Shortname 오류)</p>
-                          <p style="font-size: 0.85rem; font-weight: normal;">
-                            'hyoseong-1.disqus.com' 서버를 찾을 수 없습니다.<br>
-                            아이디가 <b>hyoseong-1</b>이 맞는지 다시 확인해주세요.
-                          </p>
-                        </div>`;
-                  }
-              };
-
               (d.head || d.body).appendChild(s);
           })();
       </script>
-      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     </section>
-    <p style="text-align: center; font-size: 0.8rem; color: #ccc; margin-top: 2rem;">[v3.1 - 자가 진단 버전]</p>
+    <p style="text-align: center; font-size: 0.8rem; color: #999; margin-top: 2rem;">[v3.2 - 최종 경로 테스트]</p>
   </main>
 
   <script src="main.js" type="module"></script>

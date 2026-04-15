@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>제휴 문의 | Partnership Inquiry</title>
   <link rel="icon" href="data:;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAuSURBVHgB7dAxAQAACMCwqcM6ZisLCH6D6O78C0YDAoFAIBAYEAgEAgOBQCB4AgN75ALrX04B9AAAAABJRU5ErkJggg==">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=3.1">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700&display=swap" rel="stylesheet">
@@ -54,34 +54,31 @@
 
     </section>
 
-    <section class="comments-wrapper">
+    <section class="comments-wrapper" style="border: 1px solid #ddd; min-height: 400px;">
       <div class="comments-header">
         <h2>의견 남기기</h2>
         <p>프로젝트에 대한 의견이나 제휴 문의 관련 댓글을 남겨주세요.</p>
       </div>
       
-      <div id="disqus_thread"></div>
+      <div id="disqus_thread">
+        <p style="text-align: center; color: #999; padding: 50px;">Disqus 댓글창을 불러오는 중입니다... (v3.1)</p>
+      </div>
 
       <script>
       /**
-       * Disqus v3.0 최종 배포 버전
+       * Disqus v3.1 기본 임베드
        */
-      var disqus_config = function () {
-        this.page.url = 'https://cvs4008a.github.io/hyoseong/';
-        this.page.identifier = '/hyoseong/';
-      };
-
+      var disqus_shortname = 'hyoseong-1'; 
       (function() {
         var d = document, s = d.createElement('script');
-        // 확인된 아이디 hyoseong-1 적용
-        s.src = 'https://hyoseong-1.disqus.com/embed.js';
+        s.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
         s.setAttribute('data-timestamp', +new Date());
         (d.head || d.body).appendChild(s);
       })();
       </script>
       <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     </section>
-    <p style="text-align: center; font-size: 0.7rem; color: #eee; margin-top: 2rem;">[v3.0 - 최종 최적화 배포]</p>
+    <p style="text-align: center; font-size: 0.7rem; color: #ccc; margin-top: 2rem;">[v3.1 - 스타일 및 설정 최적화 배포]</p>
   </main>
 
   <script src="main.js" type="module"></script>

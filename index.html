@@ -63,8 +63,7 @@
       </div>
       <script>
           /**
-           *  Disqus 설정
-           *  주의: 'hyoseong'이 실제 Disqus Shortname과 일치해야 합니다.
+           *  Disqus 설정 및 디버깅
            */
           var disqus_config = function () {
               this.page.url = window.location.href;
@@ -72,10 +71,21 @@
           };
 
           (function() {
+              console.log("Disqus 스크립트 로딩 시작...");
               var d = document, s = d.createElement('script');
-              // 아래 URL의 'hyoseong' 부분이 본인의 Disqus Shortname인지 꼭 확인하세요!
               s.src = 'https://hyoseong.disqus.com/embed.js';
               s.setAttribute('data-timestamp', +new Date());
+              
+              s.onload = function() {
+                  console.log("Disqus 스크립트 로드 성공!");
+              };
+              
+              s.onerror = function() {
+                  console.error("Disqus 스크립트 로드 실패! Shortname(hyoseong)이 정확한지 확인해 주세요.");
+                  document.getElementById('disqus_thread').innerHTML = 
+                      '<p style="text-align: center; color: var(--error);">댓글창 로드에 실패했습니다. Shortname 설정을 확인해 주세요.</p>';
+              };
+
               (d.head || d.body).appendChild(s);
           })();
       </script>

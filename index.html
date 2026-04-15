@@ -63,30 +63,38 @@
       </div>
       <script>
           /**
-           *  Disqus 설정 및 디버깅
+           * Disqus 실행 확인용 로그
            */
+          console.log("=== Disqus 디버깅 시작 ===");
+          
           var disqus_config = function () {
               this.page.url = window.location.href;
               this.page.identifier = window.location.pathname;
+              console.log("Disqus 설정 완료: " + this.page.url);
           };
 
           (function() {
-              console.log("Disqus 스크립트 로딩 시작...");
-              var d = document, s = d.createElement('script');
-              s.src = 'https://hyoseong.disqus.com/embed.js';
-              s.setAttribute('data-timestamp', +new Date());
-              
-              s.onload = function() {
-                  console.log("Disqus 스크립트 로드 성공!");
-              };
-              
-              s.onerror = function() {
-                  console.error("Disqus 스크립트 로드 실패! Shortname(hyoseong)이 정확한지 확인해 주세요.");
-                  document.getElementById('disqus_thread').innerHTML = 
-                      '<p style="text-align: center; color: var(--error);">댓글창 로드에 실패했습니다. Shortname 설정을 확인해 주세요.</p>';
-              };
+              try {
+                  var d = document, s = d.createElement('script');
+                  // 캐시 방지를 위해 시간값 추가
+                  s.src = 'https://hyoseong.disqus.com/embed.js?v=' + Date.now();
+                  s.setAttribute('data-timestamp', +new Date());
+                  
+                  s.onload = function() {
+                      console.log("결과: Disqus 스크립트 파일 로드 성공!");
+                  };
+                  
+                  s.onerror = function() {
+                      console.error("결과: 스크립트 로드 실패. Shortname(hyoseong)을 확인하세요.");
+                      document.getElementById('disqus_thread').innerHTML = 
+                          '<p style="text-align: center; color: #ff4b4b;">댓글창 로드 실패. Shortname이나 도메인 설정을 확인해주세요.</p>';
+                  };
 
-              (d.head || d.body).appendChild(s);
+                  (d.head || d.body).appendChild(s);
+                  console.log("스크립트 태그 삽입 완료. 응답 대기 중...");
+              } catch (e) {
+                  console.error("스크립트 실행 중 오류 발생:", e);
+              }
           })();
       </script>
       <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>

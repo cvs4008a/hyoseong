@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>제휴 문의 | Partnership Inquiry</title>
+  <link rel="icon" href="data:;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAuSURBVHgB7dAxAQAACMCwqcM6ZisLCH6D6O78C0YDAoFAIBAYEAgEAgOBQCB4AgN75ALrX04B9AAAAABJRU5ErkJggg==">
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -62,14 +63,17 @@
       <div id="disqus_thread"></div>
 
       <script>
+      /**
+       * Disqus v3.0 최종 배포 버전
+       */
       var disqus_config = function () {
-        this.page.url = window.location.href.split(/[?#]/)[0];
-        this.page.identifier = window.location.pathname;
+        this.page.url = 'https://cvs4008a.github.io/hyoseong/';
+        this.page.identifier = '/hyoseong/';
       };
 
       (function() {
         var d = document, s = d.createElement('script');
-        // 확인된 아이디 'hyoseong-1'을 정확히 입력합니다.
+        // 확인된 아이디 hyoseong-1 적용
         s.src = 'https://hyoseong-1.disqus.com/embed.js';
         s.setAttribute('data-timestamp', +new Date());
         (d.head || d.body).appendChild(s);
@@ -77,6 +81,7 @@
       </script>
       <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     </section>
+    <p style="text-align: center; font-size: 0.7rem; color: #eee; margin-top: 2rem;">[v3.0 - 최종 최적화 배포]</p>
   </main>
 
   <script src="main.js" type="module"></script>

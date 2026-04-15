@@ -58,53 +58,55 @@
         <h2>의견 남기기</h2>
         <p>프로젝트에 대한 의견이나 제휴 문의 관련 댓글을 남겨주세요.</p>
       </div>
-      <div id="disqus_thread">
-        <p style="text-align: center; color: var(--text-muted);">댓글창을 불러오는 중입니다...</p>
+      <div id="disqus_thread" style="min-height: 250px; border: 1px solid var(--border); border-radius: 12px; padding: 20px;">
+        <p id="disqus-status" style="text-align: center; color: var(--primary); font-weight: bold;">
+          댓글 시스템을 초기화 중입니다... (v2.0)
+        </p>
       </div>
+
       <script>
           /**
-           * Disqus 최종 디버깅 및 실행 코드
+           * Disqus v2.0 - 로딩 최적화 및 디버깅
            */
-          console.log("=== Disqus 시스템 체크 시작 ===");
-          
-          var disqus_config = function () {
-              this.page.url = window.location.href.split(/[?#]/)[0]; // 쿼리 스트링 제거된 깨끗한 URL
-              this.page.identifier = window.location.pathname;
-              console.log("1. 설정된 URL: " + this.page.url);
-              console.log("2. 설정된 ID: " + this.page.identifier);
-          };
-
           (function() {
+              console.log("=== Disqus v2.0 체크 시작 ===");
+              var status = document.getElementById('disqus-status');
+              
+              var disqus_config = function () {
+                  this.page.url = window.location.href.split(/[?#]/)[0];
+                  this.page.identifier = window.location.pathname;
+              };
+
               var d = document, s = d.createElement('script');
-              // 캐시 방지 및 최신 버전 강제 로드
               s.src = 'https://hyoseong.disqus.com/embed.js';
               s.setAttribute('data-timestamp', +new Date());
               
-              // 5초 후에도 댓글창이 안 뜨면 안내 문구 출력
-              var timeout = setTimeout(function() {
-                  var thread = document.getElementById('disqus_thread');
-                  if (thread && thread.innerHTML.includes('불러오는 중')) {
-                      console.warn("Disqus 로딩 지연 중... 설정을 확인하세요.");
-                      thread.innerHTML = `
-                        <div style="text-align: center; padding: 20px; border: 1px dashed #ccc; border-radius: 12px;">
-                          <p style="color: #ff4b4b; font-weight: bold; margin-bottom: 10px;">댓글창 로딩이 지연되고 있습니다.</p>
-                          <p style="font-size: 0.9rem; color: #666;">
-                            1. Disqus Admin에서 <b>hyoseong</b> Shortname이 정확한지 확인<br>
-                            2. <b>cvs4008a.github.io</b>가 Trusted Domains에 등록되었는지 확인<br>
-                            3. 브라우저의 <b>광고 차단기(AdBlock)</b>를 끄고 확인
-                          </p>
-                        </div>`;
+              // 5초 타임아웃
+              var timer = setTimeout(function() {
+                  if (status) {
+                      status.style.color = "#3498db";
+                      status.innerHTML = "댓글 서버와 연결이 지연되고 있습니다.<br><br>" +
+                                       "<small style='color: #666; font-weight: normal;'>" +
+                                       "1. 광고 차단기(AdBlock)가 켜져 있는지 확인<br>" +
+                                       "2. Disqus Admin에서 도메인(cvs4008a.github.io) 등록 확인<br>" +
+                                       "3. 인터넷 연결 상태 확인" +
+                                       "</small>";
                   }
               }, 5000);
 
               s.onload = function() {
-                  console.log("3. 결과: Disqus 서버 연결 성공!");
-                  clearTimeout(timeout);
+                  console.log("성공: 스크립트 로드 완료");
+                  clearTimeout(timer);
+                  if (status) status.style.display = 'none';
               };
               
               s.onerror = function() {
-                  console.error("3. 결과: 스크립트 파일 자체를 찾을 수 없습니다 (Shortname 오류 확률 높음)");
-                  clearTimeout(timeout);
+                  console.error("실패: Shortname(hyoseong)이 존재하지 않거나 차단되었습니다.");
+                  clearTimeout(timer);
+                  if (status) {
+                      status.style.color = "var(--error)";
+                      status.innerHTML = "오류: Disqus 설정을 로드할 수 없습니다.<br>Shortname 'hyoseong'이 정확한지 확인하세요.";
+                  }
               };
 
               (d.head || d.body).appendChild(s);
@@ -112,6 +114,8 @@
       </script>
       <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     </section>
+    <p style="text-align: center; font-size: 0.8rem; color: #ccc; margin-top: 2rem;">[v2.0 - 최신 버전]</p>
+  </main>
   </main>
 
   <script src="main.js" type="module"></script>

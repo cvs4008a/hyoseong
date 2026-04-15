@@ -3,82 +3,92 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>제휴 문의 | Partnership Inquiry</title>
+  <title>동물상 테스트 | 강아지 vs 고양이</title>
   <link rel="icon" href="data:;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAuSURBVHgB7dAxAQAACMCwqcM6ZisLCH6D6O78C0YDAoFAIBAYEAgEAgOBQCB4AgN75ALrX04B9AAAAABJRU5ErkJggg==">
-  <link rel="stylesheet" href="style.css?v=3.1">
+  <link rel="stylesheet" href="style.css?v=3.2">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- TensorFlow.js and Teachable Machine Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
 </head>
 <body>
   <main class="container">
-    <section class="form-wrapper">
+    <section class="card-wrapper main-card">
       <div class="header">
-        <h1>제휴 문의</h1>
-        <p>함께 혁신적인 가치를 만들어갈 파트너를 기다립니다.</p>
+        <h1>🐶 동물상 테스트 🐱</h1>
+        <p>인공지능이 분석하는 나의 동물상! 나는 강아지상일까, 고양이상일까?</p>
       </div>
-      
-      <form id="partnership-form" action="https://formspree.io/f/mqewanqn" method="POST">
-        <div class="input-group">
-          <label for="full-name">성함 / 담당자명</label>
-          <input type="text" id="full-name" name="name" required placeholder="홍길동">
+
+      <div class="test-area">
+        <!-- Model Loading Indicator -->
+        <div id="model-loading" class="loading-overlay">
+          <div class="spinner"></div>
+          <p>인공지능 모델을 불러오는 중...</p>
         </div>
 
-        <div class="input-row">
-          <div class="input-group">
-            <label for="email">이메일 주소</label>
-            <input type="email" id="email" name="email" required placeholder="example@company.com">
+        <!-- Upload & Capture Zone -->
+        <div id="upload-zone" class="upload-zone">
+          <input type="file" id="image-upload" accept="image/*" hidden>
+          <div class="upload-content" onclick="document.getElementById('image-upload').click()">
+            <div class="upload-icon">📸</div>
+            <p>사진을 업로드하거나 클릭하여 촬영하세요</p>
+            <span class="upload-hint">(파일을 여기로 드래그해도 됩니다)</span>
           </div>
-          <div class="input-group">
-            <label for="organization">소속 (회사/단체)</label>
-            <input type="text" id="organization" name="organization" required placeholder="주식회사 예시">
+        </div>
+
+        <!-- Image Preview -->
+        <div id="image-preview-container" class="image-preview-container hidden">
+          <img id="face-image" src="" alt="나의 사진">
+          <button id="re-upload-btn" class="btn-secondary">다시 찍기</button>
+        </div>
+
+        <!-- Prediction Button -->
+        <div id="action-area" class="action-area hidden">
+          <button id="predict-btn" class="btn-primary">결과 확인하기</button>
+        </div>
+
+        <!-- Result Section -->
+        <div id="result-container" class="result-container hidden">
+          <div class="result-header">
+            <h2 id="result-title">당신은 강아지상입니다!</h2>
           </div>
+          <div class="result-bars">
+            <div class="label-container">
+              <span>강아지상</span>
+              <div class="bar-bg"><div id="dog-bar" class="bar-fill dog-color" style="width: 0%"></div></div>
+              <span id="dog-percent">0%</span>
+            </div>
+            <div class="label-container">
+              <span>고양이상</span>
+              <div class="bar-bg"><div id="cat-bar" class="bar-fill cat-color" style="width: 0%"></div></div>
+              <span id="cat-percent">0%</span>
+            </div>
+          </div>
+          <p id="result-message" class="result-message"></p>
         </div>
-
-        <div class="input-group">
-          <label for="subject">문의 제목</label>
-          <input type="text" id="subject" name="subject" required placeholder="제휴 제안의 핵심 내용을 적어주세요">
-        </div>
-
-        <div class="input-group">
-          <label for="message">상세 내용</label>
-          <textarea id="message" name="message" required placeholder="제안하시고자 하는 내용을 상세히 입력해 주세요."></textarea>
-        </div>
-
-        <button type="submit" id="submit-btn">제휴 문의 보내기</button>
-        
-        <div id="status-message" class="status-message hidden">
-          <p id="status-text"></p>
-        </div>
-      </form>
-
+      </div>
     </section>
 
-    <section class="comments-wrapper" style="border: 1px solid #ddd; min-height: 400px;">
+    <!-- Comments Section -->
+    <section class="comments-wrapper">
       <div class="comments-header">
         <h2>의견 남기기</h2>
-        <p>프로젝트에 대한 의견이나 제휴 문의 관련 댓글을 남겨주세요.</p>
+        <p>테스트 결과에 대해 의견을 나눠보세요!</p>
       </div>
-      
-      <div id="disqus_thread">
-        <p style="text-align: center; color: #999; padding: 50px;">Disqus 댓글창을 불러오는 중입니다... (v3.1)</p>
-      </div>
-
+      <div id="disqus_thread"></div>
       <script>
-      /**
-       * Disqus v3.1 기본 임베드
-       */
-      var disqus_shortname = 'hyoseong-1'; 
-      (function() {
-        var d = document, s = d.createElement('script');
-        s.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-      })();
+        var disqus_shortname = 'hyoseong-1'; 
+        (function() {
+          var d = document, s = d.createElement('script');
+          s.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
       </script>
       <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     </section>
-    <p style="text-align: center; font-size: 0.7rem; color: #ccc; margin-top: 2rem;">[v3.1 - 스타일 및 설정 최적화 배포]</p>
   </main>
 
   <script src="main.js" type="module"></script>

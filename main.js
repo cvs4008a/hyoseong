@@ -1,76 +1,125 @@
+// Teachable Machine Model URL
+const URL = "https://teachablemachine.withgoogle.com/models/PyV6NUzwi/";
+
+let model, maxPredictions;
+
+// DOM Elements
+const modelLoading = document.getElementById('model-loading');
+const uploadZone = document.getElementById('upload-zone');
+const imageUpload = document.getElementById('image-upload');
+const previewContainer = document.getElementById('image-preview-container');
+const faceImage = document.getElementById('face-image');
+const reUploadBtn = document.getElementById('re-upload-btn');
+const actionArea = document.getElementById('action-area');
+const predictBtn = document.getElementById('predict-btn');
+const resultContainer = document.getElementById('result-container');
+const resultTitle = document.getElementById('result-title');
+const resultMessage = document.getElementById('result-message');
+const dogBar = document.getElementById('dog-bar');
+const catBar = document.getElementById('cat-bar');
+const dogPercent = document.getElementById('dog-percent');
+const catPercent = document.getElementById('cat-percent');
+
 /**
- * Partnership Inquiry Form Handler
- * Integrated with Formspree
+ * Initialize the Teachable Machine model
  */
+async function init() {
+  const modelURL = URL + "model.json";
+  const metadataURL = URL + "metadata.json";
 
-document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('partnership-form');
-  const statusMessage = document.getElementById('status-message');
-  const statusText = document.getElementById('status-text');
-  const submitBtn = document.getElementById('submit-btn');
-
-  /**
-   * Show feedback message to the user
-   * @param {string} message - The message to display
-   * @param {boolean} isSuccess - Whether the operation was successful
-   */
-  const showStatus = (message, isSuccess) => {
-    statusText.textContent = message;
-    statusMessage.classList.remove('hidden', 'success', 'error');
-    statusMessage.classList.add(isSuccess ? 'success' : 'error');
-    statusMessage.style.display = 'block';
-    statusMessage.style.opacity = '1';
-
-    // Auto-hide success message after 5 seconds
-    if (isSuccess) {
-      setTimeout(() => {
-        statusMessage.style.opacity = '0';
-        setTimeout(() => {
-          statusMessage.classList.add('hidden');
-          statusMessage.style.display = 'none';
-        }, 300);
-      }, 5000);
-    }
-  };
-
-  /**
-   * Handle form submission
-   */
-  form.addEventListener('submit', async (event) => {
-    event.preventDefault();
+  try {
+    model = await tmImage.load(modelURL, metadataURL);
+    maxPredictions = model.getTotalClasses();
     
-    // Disable submit button during processing
-    const originalBtnText = submitBtn.textContent;
-    submitBtn.textContent = '보내는 중...';
-    submitBtn.disabled = true;
+    // Hide loading overlay
+    modelLoading.classList.add('hidden');
+    console.log("Model loaded successfully");
+  } catch (error) {
+    console.error("Error loading model:", error);
+    modelLoading.innerHTML = `<p style="color: var(--error)">모델을 불러오는 중 오류가 발생했습니다.</p>`;
+  }
+}
 
-    const formData = new FormData(form);
-    
-    try {
-      const response = await fetch(form.action, {
-        method: form.method,
-        body: formData,
-        headers: {
-          'Accept': 'application/json'
-        }
-      });
-
-      if (response.ok) {
-        showStatus('제휴 문의가 성공적으로 전송되었습니다. 곧 연락드리겠습니다!', true);
-        form.reset();
-      } else {
-        const data = await response.json();
-        if (Object.hasOwn(data, 'errors')) {
-          showStatus(data['errors'].map(error => error['message']).join(', '), false);
-        } else {
-          showStatus('문의 전송 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.', false);
-        }
-      }
-    } catch (error) {
-      showStatus('네트워크 오류가 발생했습니다. 연결 상태를 확인해 주세요.', false);
-    } finally {
-      submitBtn.textContent = originalBtnText;
-      submitBtn.disabled = false;
-    }
-  });
+/**
+ * Handle image selection and preview
+ */
+imageUpload.addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(event) {
+      faceImage.src = event.target.result;
+      
+      // UI Transitions
+      uploadZone.classList.add('hidden');
+      previewContainer.classList.remove('hidden');
+      actionArea.classList.remove('hidden');
+      resultContainer.classList.add('hidden'); // Hide previous results
+    };
+    reader.readAsDataURL(file);
+  }
 });
+
+/**
+ * Reset and re-upload
+ */
+reUploadBtn.addEventListener('click', () => {
+  imageUpload.value = '';
+  uploadZone.classList.remove('hidden');
+  previewContainer.classList.add('hidden');
+  actionArea.classList.add('hidden');
+  resultContainer.classList.add('hidden');
+});
+
+/**
+ * Run prediction
+ */
+predictBtn.addEventListener('click', async () => {
+  if (!model) return;
+
+  predictBtn.disabled = true;
+  predictBtn.textContent = '분석 중...';
+
+  // Run prediction
+  const prediction = await model.predict(faceImage);
+  
+  // Sort predictions by probability
+  prediction.sort((a, b) => b.probability - a.probability);
+  
+  displayResults(prediction);
+  
+  predictBtn.disabled = false;
+  predictBtn.textContent = '결과 확인하기';
+});
+
+/**
+ * Display the results in the UI
+ */
+function displayResults(prediction) {
+  resultContainer.classList.remove('hidden');
+  
+  const topResult = prediction[0];
+  const dogProb = (prediction.find(p => p.className === "강아지")?.probability || 0) * 100;
+  const catProb = (prediction.find(p => p.className === "고양이")?.probability || 0) * 100;
+
+  // Update bars and percentages
+  dogBar.style.width = `${dogProb}%`;
+  catBar.style.width = `${catProb}%`;
+  dogPercent.textContent = `${Math.round(dogProb)}%`;
+  catPercent.textContent = `${Math.round(catProb)}%`;
+
+  // Set result text
+  if (topResult.className === "강아지") {
+    resultTitle.textContent = "🐶 당신은 귀여운 강아지상!";
+    resultMessage.textContent = "다정다감하고 활발한 에너지를 가진 당신! 주변 사람들에게 긍정적인 기운을 전달하는 매력적인 강아지상을 닮았네요.";
+  } else {
+    resultTitle.textContent = "🐱 당신은 시크한 고양이상!";
+    resultMessage.textContent = "도도하면서도 신비로운 분위기를 가진 당신! 차분하고 독립적인 매력이 돋보이는 고양이상을 닮았네요.";
+  }
+
+  // Scroll to result
+  resultContainer.scrollIntoView({ behavior: 'smooth' });
+}
+
+// Start the app
+init();

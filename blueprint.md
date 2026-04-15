@@ -1,38 +1,38 @@
-# **Project Blueprint: Partnership Inquiry Form**
+# **Project Blueprint: Animal Face Test (Dog vs Cat)**
 
 ## **Overview**
-A professional, high-performance web page featuring a partnership inquiry form integrated with Formspree (`https://formspree.io/f/mqewanqn`). The design focuses on modern web standards (Baseline), responsiveness, and accessibility, providing an intuitive and visually polished user experience.
+A visually appealing and interactive "Animal Face Test" website that classifies a user's face as either a "Dog" or a "Cat" using a Teachable Machine model. The site leverages modern web standards (Baseline), responsiveness, and polished UI/UX for a delightful user experience.
 
 ## **Project Documentation**
-*   **Purpose:** Allow users to submit partnership inquiries directly to the project owner.
+*   **Purpose:** Allow users to upload a photo and get a fun prediction about their "animal face" type.
 *   **Technologies:**
-    *   **HTML5:** Semantic structure with appropriate form elements and ARIA attributes for accessibility.
-    *   **CSS3 (Baseline):** Modern layouts using Flexbox/Grid, container queries, `oklch` for vibrant colors, and custom properties for theming.
-    *   **JavaScript (ES Modules):** Asynchronous form submission using the `fetch` API to provide a seamless feedback loop without page reloads.
-    *   **External Services:** [Formspree](https://formspree.io/) for backend form handling.
-*   **Design Language:** Professional layout with clean typography, subtle background textures, and high-quality interactive elements (e.g., "glow" effects on buttons, soft deep shadows).
+    *   **HTML5 & CSS3 (Baseline):** Semantic structure and modern styling with `oklch`, container queries, and layered shadows.
+    *   **JavaScript (ES Modules):** Asynchronous model loading and image processing.
+    *   **TensorFlow.js & Teachable Machine Image SDK:** For in-browser machine learning inference.
+    *   **Model URL:** `https://teachablemachine.withgoogle.com/models/PyV6NUzwi/`
+*   **Design Language:** Centered interaction card, glassmorphism-inspired elements, smooth transitions, and vibrant colors.
 
-## **Current Plan: Partnership Inquiry Form Implementation**
+## **Current Plan: Animal Face Test Implementation**
 ### **1. Structure (HTML)**
-*   Create a clean, semantic `<form>` element.
-*   Include fields: `Full Name`, `Email Address`, `Organization`, `Subject`, and `Message`.
-*   Ensure each input has a corresponding `<label>` and proper `id`.
-*   Add a visual "Success" and "Error" message container (hidden by default).
+*   Include TensorFlow.js and the Teachable Machine Image library from CDN.
+*   Create a header section with a title and a brief description.
+*   Implement an upload/capture section with an image drop zone.
+*   Include a results section to display the prediction and probability bars.
+*   Retain the Disqus comment section for user community interaction.
 
 ### **2. Styling (CSS)**
-*   Apply a "Professional Layout" theme.
-*   Use `oklch` for perceptually uniform colors.
-*   Implement container queries to ensure the form looks great regardless of parent size.
-*   Add a subtle noise texture to the background and multi-layered shadows for depth.
-*   Design custom focus states and interactive "glow" effects for the submit button.
+*   Use `oklch` for a modern, vibrant color palette.
+*   Apply a subtle noise texture to the background and deep multi-layered shadows to the main card.
+*   Design a responsive and interactive image drop zone with hover and focus effects.
+*   Create animated result bars to visualize probabilities.
 
 ### **3. Interactivity (JavaScript)**
-*   Implement a submit event listener on the form.
-*   Use `fetch` to POST data to the Formspree endpoint.
-*   Handle the server response and display appropriate feedback messages to the user.
-*   Clear the form on successful submission.
+*   Load the Teachable Machine model asynchronously from the provided URL.
+*   Handle file selection and drop events, displaying a preview of the selected image.
+*   Implement the prediction logic and update the UI with the top result.
+*   Add loading states and error handling for model initialization.
 
 ### **4. Verification**
-*   Check for accessibility issues (WCAG compliance).
+*   Test with various dog and cat images to ensure accuracy.
 *   Verify responsiveness across multiple viewports.
-*   Test form submission logic and error handling.
+*   Audit for accessibility (ARIA labels, keyboard navigation).

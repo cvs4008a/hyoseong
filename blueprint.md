@@ -1,36 +1,66 @@
-# **Project Blueprint: High-Quality Animal Face Test**
+# **Project Blueprint: AI 동물상 테스트**
 
-## **Overview**
-A high-quality, professional "Animal Face Test" website designed for Google AdSense approval. The site features AI-powered analysis (Dog vs Cat), unique informational content, clear navigation, and legal compliance. It follows modern web standards (Baseline) and emphasizes a delightful user experience.
+## **1. 개요 (Overview)**
 
-## **Project Documentation**
-*   **Purpose:** Provide a fun AI-based interaction while offering valuable information about "animal face" traits and machine learning technology.
-*   **Technologies:**
-    *   **HTML5 & CSS3 (Baseline):** Semantic structure and modern styling with `oklch`, container queries, and layered shadows.
-    *   **JavaScript (ES Modules):** Asynchronous model loading and image processing.
-    *   **TensorFlow.js & Teachable Machine Image SDK:** In-browser machine learning inference.
-    *   **Model URL:** `https://teachablemachine.withgoogle.com/models/PyV6NUzwi/`
-    *   **Google AdSense:** Integrated with verification meta tags, auto-ads script, and a compliant `ads.txt`.
-*   **Design Language:** Professional layout with a clean header, informative sections, a centered interaction card, and a comprehensive footer.
+- **프로젝트명:** AI 동물상 테스트
+- **목표:** 사용자가 업로드한 얼굴 사진을 인공지능(AI)으로 분석하여, '강아지상', '고양이상', '토끼상', '사슴상', '원숭이상', '다람쥐상' 등 어떤 동물상에 가까운지 알려주는 재미있고 매력적인 웹 애플리케이션을 제작합니다. Google AdSense 승인을 목표로 양질의 콘텐츠와 전문적인 사용자 경험을 제공합니다.
+- **핵심 기능:**
+  - 사진 업로드 및 실시간 AI 분석 기능
+  - 분석 결과를 확률과 함께 시각적인 막대그래프로 제공
+  - 각 동물상에 대한 재미있는 특징 및 대표 연예인 정보 제공
+  - 모바일 반응형 디자인 및 높은 접근성 준수
 
-## **AdSense Quality Enhancements**
-### **1. Informative Content**
-*   "What is Animal Face Test?": An overview of the test and its fun purpose.
-*   "Animal Face Characteristics": Detailed descriptions of typical "Dog Face" and "Cat Face" personality and physical traits.
-*   "AI Technology": Explaining the machine learning behind the scenes to add educational value.
+## **2. 기술 스택 (Technologies)**
 
-### **2. Navigation and Compliance**
-*   **Navigation Bar:** Links to Home, About, and Test sections for a clear user journey.
-*   **Footer:** Links to Privacy Policy, Terms of Service, and Contact information.
-*   **Privacy Policy:** A dedicated `privacy.html` page detailing data usage (all processing is done locally).
+- **프론트엔드:**
+  - **HTML5, CSS3 (Baseline):** 시맨틱 마크업과 모던 CSS 기능을 활용한 구조 및 스타일링. (CSS 변수, Flexbox, Grid)
+  - **JavaScript (ES Modules):** 비동기 로직 처리, DOM 조작 및 동적 UI 생성을 담당합니다.
+- **머신러닝:**
+  - **TensorFlow.js & Teachable Machine:** 브라우저 내에서 직접 실행되는 경량화된 이미지 분류 모델을 사용합니다.
+  - **모델 URL:** `https://teachablemachine.withgoogle.com/models/6JiGcs49z/`
+- **기타:**
+  - **Google AdSense:** 광고 수익화를 위한 스크립트 및 `ads.txt` 파일 통합.
+  - **Google Analytics, Microsoft Clarity:** 사용자 행동 분석 및 서비스 개선을 위한 분석 도구 연동.
 
-### **3. Professional Design**
-*   Clean typography with high readability.
-*   Vibrant `oklch` color palette and subtle background textures.
-*   Balanced layout that clearly distinguishes between interactive and informational elements.
+## **3. 디자인 및 스타일 가이드**
 
-## **Current Implementation Status**
--   **Structure:** Updated with navigation, informational sections, and a footer.
--   **Legal:** Created `privacy.html` for AdSense compliance.
--   **AI:** Fully functional Teachable Machine integration.
--   **AdSense:** Configured with verification tags and `ads.txt`.
+- **컨셉:** 전문적이면서도 친근하고 재미있는 느낌을 전달합니다.
+- **레이아웃:** 중앙에 핵심 기능을 배치한 카드형 UI를 중심으로, 명확한 내비게이션과 정보 섹션을 제공합니다.
+- **색상 팔레트:** 각 동물상을 대표하는 다채롭고 생동감 있는 색상 시스템을 구축하여 시각적 즐거움을 더합니다. (예: `dog-color`, `cat-color` 등)
+- **타이포그래피:** 가독성이 높은 'Pretendard' 폰트를 사용하여 명확한 정보 전달을 우선시합니다.
+- **인터랙션:** 부드러운 애니메이션과 전환 효과를 통해 사용자의 조작에 즉각적으로 반응하는 동적인 경험을 제공합니다.
+
+## **4. 구현된 기능 및 페이지**
+
+- **`index.html` (메인 페이지):**
+  - 사진 업로드(클릭, 드래그앤드롭) 인터페이스.
+  - AI 모델 로딩 상태 표시.
+  - 분석 결과를 모든 동물상에 대해 동적으로 생성되는 막대그래프로 시각화.
+  - 가장 확률이 높은 동물상에 대한 결과 메시지 출력.
+- **`main.js` (핵심 로직):**
+  - Teachable Machine 모델 로드 및 초기화.
+  - 이미지 파일 처리 및 예측 수행.
+  - 6가지 동물상(`강아지`, `고양이`, `토끼`, `사슴`, `원숭이`, `다람쥐`)의 예측 결과를 동적으로 정렬하고 UI에 바인딩하는 로직 구현.
+  - 드래그앤드롭 기능 구현.
+- **`style.css` (스타일시트):**
+  - 6가지 동물상에 대한 고유 색상 변수 및 테마(`--dog-color`, `--cat-color` 등) 정의.
+  - 전체적인 레이아웃, 반응형 디자인, 동적 결과 표시를 위한 스타일링.
+- **`characteristics.html` (동물상 특징 페이지):**
+  - 6가지 동물상 각각에 대한 특징, 성격, 얼굴 특징, 대표 연예인 정보를 담은 정보 콘텐츠 페이지.
+  - 각 동물상 테마에 맞는 색상으로 구분된 정보 박스 제공.
+- **기타 페이지:**
+  - **`about.html`:** 프로젝트 소개 페이지.
+  - **`privacy.html`:** 개인정보 처리방침 페이지 (AdSense 요구사항 충족).
+
+## **5. 현재 진행 상황: 동물상 확장 및 UI/UX 고도화**
+
+- **요청 사항:** 기존 '강아지/고양이' 2종 동물상 모델에서 새로운 다종 동물상 모델로 교체 요청.
+- **수행 단계:**
+  1.  **모델 교체:** `main.js`의 Teachable Machine 모델 URL을 새 주소로 변경.
+  2.  **동물상 목록 업데이트:** 사용자가 제공한 정확한 동물상 목록('강아지', '고양이', '원숭이', '사슴', '토끼', '다람쥐')을 `main.js`와 `characteristics.html`에 반영.
+  3.  **UI 동적 생성:** `index.html`의 결과 표시 영역을 수정하여, `main.js`가 API 응답에 따라 동적으로 결과 막대그래프를 생성하도록 변경.
+  4.  **스타일 확장:** `style.css`에 새로운 동물상들을 위한 색상 변수와 테마 클래스를 추가.
+  5.  **콘텐츠 추가:** `characteristics.html`에 새로운 동물상들의 특징과 정보를 상세히 추가.
+  6.  **메타 데이터 최적화:** `index.html`의 `<meta>` 태그(keywords, description)를 새로운 동물상 목록에 맞게 수정.
+  7.  **문서화:** `blueprint.md`를 최신 상태로 업데이트 완료.
+- **결과:** 사용자의 새로운 요구사항에 맞춰 웹사이트의 핵심 기능과 콘텐츠가 성공적으로 확장 및 업데이트됨.

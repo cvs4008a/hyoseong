@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="인공지능(AI)이 분석하는 나의 동물상 테스트! 강아지상일까, 고양이상일까? 지금 바로 사진 한 장으로 당신의 매력을 확인해보세요.">
-  <meta name="keywords" content="동물상 테스트, 관상 테스트, AI 테스트, 강아지상, 고양이상, 인공지능 분석, Teachable Machine">
+  <meta name="description" content="인공지능(AI)이 분석하는 나의 동물상 테스트! 강아지, 고양이, 토끼, 원숭이, 사슴, 다람쥐 등 다양한 동물상 중에서 나는 어떤 타입일까? 지금 바로 확인해보세요.">
+  <meta name="keywords" content="동물상 테스트, 관상 테스트, AI 테스트, 강아지상, 고양이상, 토끼상, 원숭이상, 사슴상, 다람쥐상, 인공지능, Teachable Machine">
   <meta name="google-adsense-account" content="ca-pub-5372181264998864">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5372181264998864" crossorigin="anonymous"></script>
   <!-- Google tag (gtag.js) -->
@@ -24,9 +24,9 @@
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "wevbxeli8g");
   </script>
-  <title>동물상 테스트 | 강아지 vs 고양이</title>
+  <title>AI 동물상 테스트 | 나는 어떤 동물을 닮았을까?</title>
   <link rel="icon" href="data:;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAuSURBVHgB7dAxAQAACMCwqcM6ZisLCH6D6O78C0YDAoFAIBAYEAgEAgOBQCB4AgN75ALrX04B9AAAAABJRU5ErkJggg==">
-  <link rel="stylesheet" href="style.css?v=3.5">
+  <link rel="stylesheet" href="style.css?v=3.7">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700&display=swap" rel="stylesheet">
@@ -38,7 +38,7 @@
   <!-- Navigation Bar -->
   <header class="main-nav">
     <div class="nav-container">
-      <a href="index.html" class="logo">🐶 동물상 테스트 🐱</a>
+      <a href="index.html" class="logo">🐾 AI 동물상 테스트 🐾</a>
       <nav>
         <a href="index.html">홈</a>
         <a href="about.html">소개</a>
@@ -52,8 +52,8 @@
     <!-- Main Interaction Card -->
     <section class="card-wrapper main-card">
       <div class="header">
-        <h1>🐶 동물상 테스트 🐱</h1>
-        <p>인공지능이 분석하는 나의 동물상! 나는 강아지상일까, 고양이상일까?</p>
+        <h1>🐾 AI 동물상 테스트 🐾</h1>
+        <p>인공지능이 분석하는 나의 동물상! <br>나는 어떤 동물을 닮았을까?</p>
       </div>
 
       <div class="test-area">
@@ -66,7 +66,7 @@
           <input type="file" id="image-upload" accept="image/*" hidden>
           <div class="upload-content" onclick="document.getElementById('image-upload').click()" tabindex="0" role="button" aria-label="사진 업로드 또는 촬영">
             <div class="upload-icon" role="img" aria-label="카메라 아이콘">📸</div>
-            <p>사진을 업로드하거나 클릭하여 촬영하세요</p>
+            <p>얼굴 사진을 업로드하거나 촬영해보세요</p>
             <span class="upload-hint">(파일을 여기로 드래그해도 됩니다)</span>
           </div>
         </div>
@@ -84,18 +84,8 @@
           <div class="result-header">
             <h2 id="result-title">분석 결과</h2>
           </div>
-          <div class="result-bars" aria-live="polite">
-            <div class="label-container">
-              <span>강아지상</span>
-              <div class="bar-bg"><div id="dog-bar" class="bar-fill dog-color" style="width: 0%"></div></div>
-              <span id="dog-percent">0%</span>
-            </div>
-            <div class="label-container">
-              <span>고양이상</span>
-              <div class="bar-bg"><div id="cat-bar" class="bar-fill cat-color" style="width: 0%"></div></div>
-              <span id="cat-percent">0%</span>
-            </div>
-          </div>
+          <!-- Dynamic result bars will be injected here by main.js -->
+          <div class="result-bars" aria-live="polite"></div>
           <p id="result-message" class="result-message"></p>
         </div>
       </div>
@@ -122,7 +112,7 @@
         </a>
         <a href="characteristics.html" class="info-nav-card">
             <h3>다양한 동물상 특징 🐾</h3>
-            <p>강아지상, 고양이상 외에 다른 동물상들의 재미있는 특징들을 살펴보세요.</p>
+            <p>강아지, 고양이, 토끼 등 다양한 동물상들의 재미있는 특징들을 살펴보세요.</p>
         </a>
     </section>
     

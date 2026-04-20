@@ -1,7 +1,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Teachable Machine Model URL
-  const URL = "https://teachablemachine.withgoogle.com/models/PyV6NUzwi/";
+  // Corrected Teachable Machine Model URL
+  const URL = "https://teachablemachine.withgoogle.com/models/6JiGcs49z/";
 
   let model, maxPredictions;
 
@@ -17,10 +17,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const resultContainer = document.getElementById('result-container');
   const resultTitle = document.getElementById('result-title');
   const resultMessage = document.getElementById('result-message');
-  const dogBar = document.getElementById('dog-bar');
-  const catBar = document.getElementById('cat-bar');
-  const dogPercent = document.getElementById('dog-percent');
-  const catPercent = document.getElementById('cat-percent');
+  const resultBarsContainer = document.querySelector('.result-bars');
+
+  // Animal-specific details (icons and colors) - CORRECTED LIST
+  const animalDetails = {
+    '강아지상': { icon: '🐶', color: 'dog-color' },
+    '고양이상': { icon: '🐱', color: 'cat-color' },
+    '토끼상': { icon: '🐰', color: 'rabbit-color' },
+    '사슴상': { icon: '🦌', color: 'deer-color' },
+    '원숭이상': { icon: '🐒', color: 'monkey-color' },
+    '다람쥐상': { icon: '🐿️', color: 'squirrel-color' }
+  };
 
   /**
    * Initialize the Teachable Machine model
@@ -98,12 +105,9 @@ document.addEventListener('DOMContentLoaded', () => {
         await new Promise(resolve => setTimeout(resolve, 800));
 
         const prediction = await model.predict(faceImage);
-        
-        console.log("Raw Prediction Data:", prediction);
-        
         const sortedPrediction = [...prediction].sort((a, b) => b.probability - a.probability);
         
-        displayResults(sortedPrediction, prediction);
+        displayResults(sortedPrediction);
       } catch (error) {
         console.error("Prediction Error:", error);
         alert("이미지 분석 중 오류가 발생했습니다. 다시 시도해 주세요.");
@@ -117,42 +121,67 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    * Display the results in the UI
    */
-  function displayResults(sortedPrediction, rawPrediction) {
+  function displayResults(predictions) {
     resultContainer.classList.remove('hidden');
-    
-    const topResult = sortedPrediction[0];
-    
-    const dogProbObj = rawPrediction.find(p => 
-      p.className.toLowerCase().includes("dog") || p.className.includes("강아지")
-    );
-    const catProbObj = rawPrediction.find(p => 
-      p.className.toLowerCase().includes("cat") || p.className.includes("고양이")
-    );
+    resultBarsContainer.innerHTML = ''; // Clear previous results
 
-    const dogProb = (dogProbObj?.probability || 0) * 100;
-    const catProb = (catProbObj?.probability || 0) * 100;
+    // Create a bar for each prediction
+    predictions.forEach(p => {
+        const className = p.className;
+        const probability = (p.probability * 100).toFixed(1);
+        const detail = animalDetails[className] || { icon: '❓', color: '' };
 
-    dogBar.style.width = `${dogProb}%`;
-    catBar.style.width = `${catProb}%`;
-    dogPercent.textContent = `${Math.round(dogProb)}%`;
-    catPercent.textContent = `${Math.round(catProb)}%`;
+        const labelContainer = document.createElement('div');
+        labelContainer.className = 'label-container';
+        const barFillClass = detail.color;
 
-    const topClass = topResult.className.toLowerCase();
-    
-    if (topClass.includes("dog") || topClass.includes("강아지")) {
-      resultTitle.textContent = "🐶 당신은 귀여운 강아지상!";
-      resultMessage.textContent = `강아지 지수 ${Math.round(dogProb)}%! 다정다감하고 활발한 에너지를 가진 당신! 주변 사람들에게 긍정적인 기운을 전달하는 매력적인 강아지상을 닮았네요.`;
-    } else if (topClass.includes("cat") || topClass.includes("고양이")) {
-      resultTitle.textContent = "🐱 당신은 시크한 고양이상!";
-      resultMessage.textContent = `고양이 지수 ${Math.round(catProb)}%! 도도하면서도 신비로운 분위기를 가진 당신! 차분하고 독립적인 매력이 돋보이는 고양이상을 닮았네요.`;
-    } else {
-      resultTitle.textContent = "🤔 분석 결과를 알 수 없습니다.";
-      resultMessage.textContent = "인공지능이 판단하기 어려운 신비로운 매력을 가지고 계시네요! (라벨: " + topResult.className + ")";
-    }
+        labelContainer.innerHTML = `
+            <span class="animal-label">${detail.icon} ${className}</span>
+            <div class="bar-bg">
+                <div class="bar-fill ${barFillClass}" style="width: ${probability}%"></div>
+            </div>
+            <span class="percent-label">${probability}%</span>
+        `;
+        resultBarsContainer.appendChild(labelContainer);
+    });
+
+    // Set the main title and message based on the top result
+    const topResult = predictions[0];
+    const topClass = topResult.className;
+    const topProb = (topResult.probability * 100).toFixed(0);
+    const topDetail = animalDetails[topClass] || { icon: '🤔' };
+
+    resultTitle.textContent = `${topDetail.icon} 당신은 ${topClass}에 가깝군요!`;
+    resultMessage.textContent = `가장 높은 확률은 ${topProb}%의 ${topClass}입니다! 각 동물상에 대한 더 자세한 특징이 궁금하다면, '다양한 동물상 특징' 페이지를 확인해보세요.`;
 
     resultContainer.scrollIntoView({ behavior: 'smooth' });
   }
 
+  // Drag and Drop functionality
+  const setupDragDrop = () => {
+    uploadZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadZone.classList.add('drag-over');
+    });
+
+    uploadZone.addEventListener('dragleave', (e) => {
+        e.preventDefault();
+        uploadZone.classList.remove('drag-over');
+    });
+
+    uploadZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadZone.classList.remove('drag-over');
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+        imageUpload.files = files;
+        const event = new Event('change', { bubbles: true });
+        imageUpload.dispatchEvent(event);
+        }
+    });
+  };
+
   // Start the app
   init();
+  setupDragDrop();
 });

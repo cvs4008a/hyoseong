@@ -18,7 +18,7 @@
   </script>
   <title>동물상 테스트 | 강아지 vs 고양이</title>
   <link rel="icon" href="data:;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAuSURBVHgB7dAxAQAACMCwqcM6ZisLCH6D6O78C0YDAoFAIBAYEAgEAgOBQCB4AgN75ALrX04B9AAAAABJRU5ErkJggg==">
-  <link rel="stylesheet" href="style.css?v=3.4">
+  <link rel="stylesheet" href="style.css?v=3.5">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700&display=swap" rel="stylesheet">
@@ -50,22 +50,22 @@
 
       <div class="test-area">
         <div id="model-loading" class="loading-overlay">
-          <div class="spinner"></div>
+          <div class="spinner" role="status" aria-label="로딩 중"></div>
           <p>인공지능 모델을 불러오는 중...</p>
         </div>
 
         <div id="upload-zone" class="upload-zone">
           <input type="file" id="image-upload" accept="image/*" hidden>
-          <div class="upload-content" onclick="document.getElementById('image-upload').click()">
-            <div class="upload-icon">📸</div>
+          <div class="upload-content" onclick="document.getElementById('image-upload').click()" tabindex="0" role="button" aria-label="사진 업로드 또는 촬영">
+            <div class="upload-icon" role="img" aria-label="카메라 아이콘">📸</div>
             <p>사진을 업로드하거나 클릭하여 촬영하세요</p>
             <span class="upload-hint">(파일을 여기로 드래그해도 됩니다)</span>
           </div>
         </div>
 
         <div id="image-preview-container" class="image-preview-container hidden">
-          <img id="face-image" src="" alt="나의 사진">
-          <button id="re-upload-btn" class="btn-secondary">다시 찍기</button>
+          <img id="face-image" src="" alt="사용자가 업로드한 얼굴 사진">
+          <button id="re-upload-btn" class="btn-secondary">다시 선택하기</button>
         </div>
 
         <div id="action-area" class="action-area hidden">
@@ -74,9 +74,9 @@
 
         <div id="result-container" class="result-container hidden">
           <div class="result-header">
-            <h2 id="result-title">당신은 강아지상입니다!</h2>
+            <h2 id="result-title">분석 결과</h2>
           </div>
-          <div class="result-bars">
+          <div class="result-bars" aria-live="polite">
             <div class="label-container">
               <span>강아지상</span>
               <div class="bar-bg"><div id="dog-bar" class="bar-fill dog-color" style="width: 0%"></div></div>

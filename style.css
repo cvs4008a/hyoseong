@@ -365,6 +365,10 @@ body {
   border: 1px solid var(--border);
 }
 
+#disqus_thread {
+  min-height: 100px; /* Add this line */
+}
+
 /* Footer */
 .main-footer {
   background: #f1f3f4;
